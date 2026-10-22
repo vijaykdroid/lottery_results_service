@@ -1,8 +1,19 @@
 const express = require("express");
+
+const {
+  login,
+  getCurrentAdmin,
+  logout,
+} = require("../controllers/authController");
+
+const requireAuth = require("../middleware/requireAunthentication");
+
 const router = express.Router();
 
-const { getAdminEmail } = require("../controllers/authController");
+router.post("/login", login);
 
-router.post("/email", getAdminEmail);
+router.get("/me", requireAuth, getCurrentAdmin);
+
+router.post("/logout", logout);
 
 module.exports = router;
